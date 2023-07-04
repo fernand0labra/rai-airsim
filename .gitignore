@@ -49,3 +49,22 @@ qtcreator-*
 
 # Catkin custom files
 CATKIN_IGNORE
+
+packages/UnrealEngine-4.25.4-release
+
+workspace/src/AirSim
+workspace/src/unreal_airsim
+
+workspace/src/catkin_boost_python_buildtool
+workspace/src/catkin_simple
+workspace/src/eigen_catkin
+workspace/src/eigen_checks
+workspace/src/gflags_catkin
+workspace/src/glog_catkin
+
+workspace/src/minkindr
+workspace/src/minkindr_ros
+
+workspace/src/numpy_eigen
+
+workspace/.catkin_tools
