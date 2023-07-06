@@ -13,3 +13,12 @@ https://leartesstudios.com/blog/10-tips-for-improving-performance-in-unreal-engi
 ## Installation of ethz-asl AirSim and ROS unreal_airsim
  * https://github.com/ethz-asl/airsim
  * https://github.com/ethz-asl/unreal_airsim
+
+##########################################################################
+#                       Week 27 - Thursday 06/07/2023                    #
+##########################################################################
+
+#### Useful Links ####
+https://docs.unrealengine.com/4.27/en-US/SharingAndReleasing/Containers/ContainersQuickStart/
+
+## UE Docker Images deployment and testing on Windows

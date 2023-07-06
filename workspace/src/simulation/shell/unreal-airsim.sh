@@ -13,7 +13,7 @@ make
 export AIRSIM_PATH=/home/ltu/Desktop/ros-airsim-compatibility/workspace/src/AirSim # Set the target destination.
 cd $AIRSIM_PATH
 git clone https://github.com/ethz-asl/AirSim.git
-cd Airsim
+cd AirSim
 chmod u+x setup.sh; ./setup.sh 
 chmod u+x build.sh; ./build.sh
 
