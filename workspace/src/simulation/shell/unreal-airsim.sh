@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Unreal Engine
-git clone https://github.com/EpicGames/UnrealEngine.git
+git clone -b 4.27.2-release https://github.com/EpicGames/UnrealEngine.git
 chmod u+x Setup.sh; ./Setup.sh
 chmod u+x GenerateProjectFiles.sh; ./GenerateProjectFiles.sh
 make
@@ -10,7 +10,7 @@ make
 
 
 # AirSim Microsoft Fork
-export AIRSIM_PATH=/home/ltu/Desktop/ros-airsim-compatibility/workspace/src/AirSim # Set the target destination.
+export AIRSIM_PATH=/home/student/Desktop/ros-airsim-compatibility/workspace/src/AirSim # Set the target destination.
 cd $AIRSIM_PATH
 git clone https://github.com/ethz-asl/AirSim.git
 cd AirSim
@@ -24,11 +24,12 @@ chmod u+x build.sh; ./build.sh
 sudo apt-get install python3-wstool python3-catkin-tools ros-noetic-cmake-modules ros-noetic-tf2-sensor-msgs
 cd ..
 
-git clone -b 4.25.4 https://github.com/ethz-asl/unreal_airsim.git
+git clone https://github.com/ethz-asl/unreal_airsim.git
 
-wstool init . ./src/.rosinstall
+# wstool init . ./src/.rosinstall  # If non existant
 wstool update
 
+cd ~/ros-airsim-compatibility/workspace/src/unreal_airsim/
 echo "set(AIRSIM_ROOT $AIRSIM_PATH)" > ./AirsimPath.txt
 catkin build unreal_airsim
 source ../devel/setup.bash

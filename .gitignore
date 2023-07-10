@@ -50,7 +50,7 @@ qtcreator-*
 # Catkin custom files
 CATKIN_IGNORE
 
-packages/UnrealEngine-4.25.4-release
+workspace/src/UnrealEngine-4.27.2-release
 
 workspace/src/AirSim
 workspace/src/unreal_airsim

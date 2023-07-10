@@ -14,6 +14,7 @@ https://leartesstudios.com/blog/10-tips-for-improving-performance-in-unreal-engi
  * https://github.com/ethz-asl/airsim
  * https://github.com/ethz-asl/unreal_airsim
 
+
 ##########################################################################
 #                       Week 27 - Thursday 06/07/2023                    #
 ##########################################################################
@@ -22,3 +23,20 @@ https://leartesstudios.com/blog/10-tips-for-improving-performance-in-unreal-engi
 https://docs.unrealengine.com/4.27/en-US/SharingAndReleasing/Containers/ContainersQuickStart/
 
 ## UE Docker Images deployment and testing on Windows
+
+
+##########################################################################
+#                        Week 27 - Friday 06/07/2023                     #
+##########################################################################
+
+#### Useful Links ####
+https://www.microsoft.com/en-us/ai/autonomous-systems-project-airsim
+https://github.com/Microsoft/AirSim/blob/main/docs/image_apis.md#segmentation
+https://en.wikipedia.org/wiki/Scene_graph
+
+## Read Research Papers
+ * airsim-high-fidelity-visual-and-physical-simulation-for-autonomous-vehicles.pdf
+ * image-generation-from-scene-graphs.pdf
+ * micro-air-vehicle-link-in-a-nutshell-a-survey.pdf
+
+## Setup student@monsterpc
