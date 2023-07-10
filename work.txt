@@ -6,8 +6,8 @@
 https://docs.unrealengine.com/4.26/en-US/Basics/RecommendedSpecifications/
 https://leartesstudios.com/blog/10-tips-for-improving-performance-in-unreal-engine
 
-## Installation of Unreal Engine (UE) 4.25.4
- * https://github.com/EpicGames/UnrealEngine/tree/4.25.4-release
+## Installation of Unreal Engine (UE) 4.27
+ * https://github.com/EpicGames/UnrealEngine
  * https://docs.unrealengine.com/4.27/en-US/SharingAndReleasing/Linux/BeginnerLinuxDeveloper/SettingUpAnUnrealWorkflow/
 
 ## Installation of ethz-asl AirSim and ROS unreal_airsim
@@ -40,3 +40,19 @@ https://en.wikipedia.org/wiki/Scene_graph
  * micro-air-vehicle-link-in-a-nutshell-a-survey.pdf
 
 ## Setup student@monsterpc
+
+
+##########################################################################
+#                        Week 28 - Monday 10/07/2023                     #
+##########################################################################
+
+## Setup student@monsterpc
+
+## Read AirSim and unreal_airsim documentation
+ * https://github.com/ethz-asl/unreal_airsim/blob/master/docs/settings.md
+ * https://github.com/ethz-asl/unreal_airsim/blob/master/docs/coordinate_systems.md
+
+ * https://github.com/microsoft/AirSim/blob/main/docs/faq.md
+ * https://github.com/microsoft/AirSim/blob/main/docs/apis.md
+ * https://github.com/microsoft/AirSim/blob/main/docs/image_apis.md
+ * https://github.com/microsoft/AirSim/blob/main/docs/settings.md
