@@ -70,3 +70,16 @@ https://github.com/microsoft/AirSim/blob/main/docs/airsim_ros_pkgs.md
 https://github.com/microsoft/AirSim/blob/main/docs/airsim_tutorial_pkgs.md
 
 ## Run Python AirSim examples and obtain segmentation images
+
+
+##########################################################################
+#                       Week 28 - Wednesday 12/07/2023                   #
+##########################################################################
+
+## Define AirSim Vehicle Settings
+
+## Investigate AirSim Vehicle API
+
+## Activate and test Computer Vision mode
+
+## Client code for Vehicle Position and Segmentation Images obtention

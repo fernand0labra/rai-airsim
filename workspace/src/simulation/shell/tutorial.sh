@@ -13,6 +13,7 @@ roscd airsim_tutorial_pkgs
 cp settings/front_stereo_and_center_mono.json ~/Documents/AirSim/settings.json
 
 ## Start your unreal package or binary here
+
 roslaunch airsim_ros_pkgs airsim_node.launch;
 
 # in a new pane / terminal
