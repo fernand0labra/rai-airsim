@@ -29,7 +29,9 @@ cd AirSim
 chmod u+x setup.sh; ./setup.sh 
 chmod u+x build.sh; ./build.sh
 
-./UnrealEngine-4.27/Engine/Binaries/Linux/UE4Editor $AIRSIM_PATH/Unreal/Environments/Blocks/Blocks.uproject
+# UnrealEngine & AirSim expected to be in the same folder
+./UnrealEngine-4.27/Engine/Binaries/Linux/UE4Editor ../../../../AirSim/Unreal/Environments/Blocks/Blocks.uproject
+./UnrealEngine-4.27/Engine/Binaries/Linux/UE4Editor ~/Documents/Unreal\ Projects/Architecture/Architecture.uproject
 
 #------------------------------------------------------------#
 #             Python API (AirSim/PythonClient)               #
