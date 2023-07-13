@@ -83,3 +83,17 @@ https://github.com/microsoft/AirSim/blob/main/docs/airsim_tutorial_pkgs.md
 ## Activate and test Computer Vision mode
 
 ## Client code for Vehicle Position and Segmentation Images obtention
+
+
+##########################################################################
+#                       Week 28 - Thursday 13/07/2023                    #
+##########################################################################
+
+#### Useful Links ####
+https://www.ros.org/reps/rep-0103.html
+
+## Create and publish custom ROS message with Airsim topics from multirotor
+
+## Visualize Airsim topics in rviz
+
+## Investigate unreal_airsim settings.yaml to settings.json configuration

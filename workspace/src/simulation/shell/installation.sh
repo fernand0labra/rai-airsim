@@ -74,9 +74,12 @@ echo "set(AIRSIM_ROOT $AIRSIM_PATH)" > ./AirsimPath.txt
 catkin build unreal_airsim
 source ./fernand0labra/ros-airsim-compatibility/workspace/devel/setup.bash
 
+sudo apt-get install python-is-python3
+pip3 install --upgrade scipy
+
 # With specific configuration
 # roslaunch unreal_airsim parse_config_to_airsim.launch source:=path/to/my_settings.yaml
 
 # With generic configuration
-roslaunch unreal_airsim parse_config_to_airsim.launch 
+roslaunch unreal_airsim parse_config_to_airsim.launch source:=./src/simulation/settings/unreal_airsim_drone.yaml
 roslaunch unreal_airsim demo.launch
