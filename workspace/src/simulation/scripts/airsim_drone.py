@@ -4,15 +4,12 @@ import airsim
 import math
 import time
 
-
 def apply_scale(z, y):
     return (y+SHIFT)*FACTOR, -(z+SHIFT)*FACTOR
 
 ### Constants
-
 SLEEP = 1
 SPEED = 2
-
 FACTOR = 2
 SHIFT = 2
 
@@ -21,8 +18,6 @@ SQRT_3 = math.sqrt(3)
 # Hexagon vertice coordinates with side of 1
 Z = [SQRT_3/2, 0, -SQRT_3/2, -SQRT_3/2, 0, SQRT_3/2]
 Y = [-1/2, -1, -1/2, 1/2, 1, 1/2]
-
-###
 
 # connect to the AirSim simulator
 client = airsim.MultirotorClient()
@@ -50,11 +45,9 @@ client.moveToPositionAsync(0, *apply_scale(0, 0), SPEED).join()
 client.hoverAsync().join()
 time.sleep(SLEEP)
 
-# responses = client.simGetImages([
-#     airsim.ImageRequest("0", airsim.ImageType.Segmentation),
-#     airsim.ImageRequest("1", airsim.ImageType.Segmentation)])  #segmentation
-
-airsim.wait_key('Press any key to reset to original state')
+responses = client.simGetImages([
+    airsim.ImageRequest("0", airsim.ImageType.Segmentation),
+    airsim.ImageRequest("1", airsim.ImageType.Segmentation)])  #segmentation
 
 client.reset()
 client.armDisarm(False)

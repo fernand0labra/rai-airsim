@@ -30,20 +30,6 @@
           "camera_1": {
             "CaptureSettings": [
               {
-                "ImageType": 0,
-                "Width": 672,
-                "Height": 376,
-                "FOV_Degrees": 90,
-                "TargetGamma": 1.5
-              }, 
-              {
-                "ImageType": 1,
-                "Width": 672,
-                "Height": 376,
-                "FOV_Degrees": 90,
-                "TargetGamma": 1.5
-              }, 
-              {
                 "ImageType": 5,
                 "Width": 672,
                 "Height": 376,
@@ -56,20 +42,6 @@
           },
           "camera_2": {
             "CaptureSettings": [
-              {
-                "ImageType": 0,
-                "Width": 672,
-                "Height": 376,
-                "FOV_Degrees": 90,
-                "TargetGamma": 1.5
-              }, 
-              {
-                "ImageType": 1,
-                "Width": 672,
-                "Height": 376,
-                "FOV_Degrees": 90,
-                "TargetGamma": 1.5
-              }, 
               {
                 "ImageType": 5,
                 "Width": 672,

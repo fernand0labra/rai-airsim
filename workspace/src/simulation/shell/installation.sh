@@ -53,6 +53,10 @@ source ~/.bashrc
 
 cd AirSim/ros; catkin build;
 
+source devel/setup.bash;
+roslaunch airsim_ros_pkgs airsim_node.launch;
+roslaunch airsim_ros_pkgs rviz.launch;
+
 
 ##############################################################
 #                   Unreal Airsim ROS Package                #

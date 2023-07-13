@@ -1,0 +1,68 @@
+
+#------------------------------------------------------------#
+#                        ROS Integration                     #
+#------------------------------------------------------------#
+
+### Publishers
+
+/airsim_node/origin_geo_point                                   airsim_ros_pkgs/GPSYaw
+
+/airsim_node/VEHICLE_NAME/global_gps                            sensor_msgs/NavSatFix
+
+/airsim_node/VEHICLE_NAME/odom_local_ned                        nav_msgs/Odometry
+
+/airsim_node/VEHICLE_NAME/CAMERA_NAME/IMAGE_TYPE/camera_info    sensor_msgs/CameraInfo
+
+/airsim_node/VEHICLE_NAME/CAMERA_NAME/IMAGE_TYPE                sensor_msgs/Image
+
+/tf                                                             tf2_msgs/TFMessage
+
+/airsim_node/VEHICLE_NAME/altimeter/SENSOR_NAME                 airsim_ros_pkgs/Altimeter
+
+/airsim_node/VEHICLE_NAME/imu/SENSOR_NAME                       sensor_msgs/Imu
+
+/airsim_node/VEHICLE_NAME/magnetometer/SENSOR_NAME              sensor_msgs/MagneticField
+
+/airsim_node/VEHICLE_NAME/distance/SENSOR_NAME                  sensor_msgs/Range
+
+/airsim_node/VEHICLE_NAME/lidar/SENSOR_NAME                     sensor_msgs/PointCloud2
+
+-----------------------------------------------------------------------------------------------
+
+### Subscribers
+
+/airsim_node/vel_cmd_body_frame                                 airsim_ros_pkgs/VelCmd
+
+/airsim_node/vel_cmd_world_frame                                airsim_ros_pkgs/VelCmd
+
+/gimbal_angle_euler_cmd                                         airsim_ros_pkgs/GimbalAngleEulerCmd
+
+/gimbal_angle_quat_cmd                                          airsim_ros_pkgs/GimbalAngleQuatCmd
+
+/airsim_node/VEHICLE_NAME/car_cmd                               airsim_ros_pkgs/CarControls
+
+-----------------------------------------------------------------------------------------------
+
+### Services
+
+/airsim_node/VEHICLE_NAME/land                                  airsim_ros_pkgs/Takeoff
+
+/airsim_node/takeoff                                            airsim_ros_pkgs/Takeoff
+
+/airsim_node/reset                                              airsim_ros_pkgs/Reset
+
+-----------------------------------------------------------------------------------------------
+
+### Parameteres
+
+/airsim_node/world_frame_id                                     [string]
+
+/airsim_node/odom_frame_id                                      [string]
+
+/airsim_node/coordinate_system_enu                              [boolean]
+
+/airsim_node/update_airsim_control_every_n_sec                  [double]
+
+/airsim_node/update_airsim_img_response_every_n_sec             [double]
+
+/airsim_node/publish_clock                                      [double]
