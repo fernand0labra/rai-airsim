@@ -1,4 +1,4 @@
-nav_msgs/Odometry odom_gt
-sensor_msgs/Image seg_img
-sensor_msgs/Imu imu
-sensor_msgs/PointCloud2 lidar
+nav_msgs/Odometry odom_gt                   # Ground Truth Odometry
+sensor_msgs/Image seg_img                   # Segmentation Image
+std_msgs/UInt8MultiArray mesh_ids           # Mesh Components by ID
+std_msgs/Float32MultiArray mesh_location    # Mesh Location by Pose

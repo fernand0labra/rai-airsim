@@ -1,6 +1,13 @@
-#------------------------------------------------------------#
-#                C++ API (AirSim/PythonClient)               #
-#------------------------------------------------------------#
+#------------------------------------------------------#
+#                      Vehicle API                     #
+#------------------------------------------------------#
+
+# *** LOCATION ***
+# AirLib/src/api/RpcLibClientBase.cpp
+
+#------------------------------------------------------#
+#                     Multirotor API                   #
+#------------------------------------------------------#
 
 # *** LOCATION ***
 # AirLib/src/vehicles/multirotor/api/MultirotorApiBase.cpp
@@ -67,9 +74,6 @@
 # *** ROTATE TO/BY YAW ***
 # ---ASYNC bool MultirotorApiBase::rotateToYaw(float yaw, float timeout_sec, float margin)
 # ---ASYNC bool MultirotorApiBase::rotateByYawRate(float yaw_rate, float duration)
-
-
-
 
 # *** OTHERS ***
 

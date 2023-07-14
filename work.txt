@@ -97,3 +97,14 @@ https://www.ros.org/reps/rep-0103.html
 ## Visualize Airsim topics in rviz
 
 ## Investigate unreal_airsim settings.yaml to settings.json configuration
+
+
+##########################################################################
+#                        Week 28 - Friday 14/07/2023                     #
+##########################################################################
+
+## Visualize unreal_airsim topics in rviz
+
+## Investigate AirSim Vehicle API
+
+## Obtain mesh colors from segmentation image

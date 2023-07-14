@@ -47,6 +47,7 @@ client.moveToPositionAsync(0, 0, -4, SPEED).join()
 client.hoverAsync().join()
 time.sleep(SLEEP)
 
+# Move to the center
 responses = client.simGetImages([
     airsim.ImageRequest("0", airsim.ImageType.Segmentation),
     airsim.ImageRequest("1", airsim.ImageType.Segmentation)])  #segmentation
