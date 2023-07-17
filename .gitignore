@@ -67,4 +67,9 @@ workspace/src/minkindr_ros
 
 workspace/src/numpy_eigen
 
+workspace/src/voxblox
+workspace/src/voxgraph
+workspace/src/ceres_catkin
+workspace/src/cblox
+
 workspace/.catkin_tools

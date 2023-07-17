@@ -65,6 +65,11 @@ roslaunch airsim_ros_pkgs rviz.launch;
 # Mesh Position
 sudo apt-get install python3-wstool python3-catkin-tools ros-noetic-cmake-modules ros-noetic-tf2-sensor-msgs
 git clone https://github.com/ethz-asl/unreal_airsim.git
+git clone https://github.com/ethz-asl/voxblox.git
+git clone https://github.com/ethz-asl/voxgraph.git
+git clone https://github.com/ethz-asl/cblox
+git clone https://github.com/ethz-asl/protobuf_catkin
+git clone https://github.com/ethz-asl/ceres_catkin
 
 wstool init . .rosinstall  # If non existant
 wstool update

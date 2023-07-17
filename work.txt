@@ -108,3 +108,18 @@ https://www.ros.org/reps/rep-0103.html
 ## Investigate AirSim Vehicle API
 
 ## Obtain mesh colors from segmentation image
+
+
+##########################################################################
+#                        Week 29 - Monday 17/07/2023                     #
+##########################################################################
+
+#### Useful Links ####
+https://github.com/microsoft/AirSim/issues/3423
+https://github.com/microsoft/AirSim/pull/2855
+
+## Investigate voxblox image depth generation
+ * https://github.com/ethz-asl/voxblox
+ * https://github.com/ethz-asl/voxgraph
+
+## Obtain mesh color IDs and publish them as a ROS topic
