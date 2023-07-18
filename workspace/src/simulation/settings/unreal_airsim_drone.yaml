@@ -2,7 +2,8 @@
 vehicle_name: airsim_drone  # Params in lower_case are processed by unreal_airsim
 state_refresh_rate: 100
 ClockSpeed: 1.0             # Params in CamelCase are forwarded to the AirSim config and use AirSim defaults
- 
+ViewMode: Manual
+
 # Which Sensors to mount in the simulation
 sensors:
   Scene_cam:
@@ -10,8 +11,8 @@ sensors:
     image_type: Scene
     rate: 3
     CaptureSettings:   
-      Width: 640
-      Height: 480
+      Width: 960
+      Height: 720
       FOV_Degrees: 90
     T_B_S:
       - [1, 0, 0, 0.3]
@@ -25,8 +26,8 @@ sensors:
     rate: 3
     pixels_as_float: true
     CaptureSettings:   
-      Width: 640
-      Height: 480
+      Width: 960
+      Height: 720
       FOV_Degrees: 90
     T_B_S:
       - [1, 0, 0, 0.3]
@@ -39,8 +40,8 @@ sensors:
     image_type: Segmentation
     rate: 3
     CaptureSettings:   
-      Width: 640
-      Height: 480
+      Width: 960
+      Height: 720
       FOV_Degrees: 90
     T_B_S:
       - [1, 0, 0, 0.3]
@@ -71,4 +72,5 @@ processors:
   RGBD_cam:
     processor_type: DepthToPointcloud
     depth_camera_name: Depth_cam
-    color_camera_name: Scene_cam
+    segmentation_camera_name: Seg_cam
+    color_camera_name: Seg_cam

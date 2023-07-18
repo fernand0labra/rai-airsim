@@ -123,3 +123,16 @@ https://github.com/microsoft/AirSim/pull/2855
  * https://github.com/ethz-asl/voxgraph
 
 ## Obtain mesh color IDs and publish them as a ROS topic
+
+
+##########################################################################
+#                       Week 29 - Tuesday 18/07/2023                     #
+##########################################################################
+
+#### Useful Links ####
+https://github.com/microsoft/AirSim/blob/main/docs/InfraredCamera.md
+
+## Investigate unreal_airsim pointcloud depth generation
+* http://docs.ros.org/en/melodic/api/sensor_msgs/html/msg/PointCloud2.html
+* http://docs.ros.org/en/jade/api/sensor_msgs/html/classsensor__msgs_1_1PointCloud2Modifier.html
+* http://docs.ros.org/en/jade/api/sensor_msgs/html/classsensor__msgs_1_1PointCloud2Iterator.html

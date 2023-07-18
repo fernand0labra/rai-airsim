@@ -34,11 +34,11 @@ def callback(image):
             color[array_idx] = color_array[0][idx]  # Set color value
             colors.update({str(color_array[1][idx]): color})
 
-    print(colors)
-
     global mesh_ids
     mesh_ids = np.zeros(len(colors.keys()), dtype=np.uint8)
     
+    print(colors)
+
     for idx, color in enumerate(colors.values()):
         r_df = color_checks.loc[color_checks[1] == color[0]]
         g_df = r_df.loc[color_checks[2] == color[1]]
@@ -52,11 +52,20 @@ def callback(image):
 
 client = airsim.client.MultirotorClient()
 
-mesh_names_regex = ['cone[\w]*', 'templatecube[\w]rounded[\w]*', 'orangeball', 'ground[\w]*', 'skyshereblueprint']
-mesh_names = ['cone_5', 'templatecube_rounded_10', 'orangeball', 'ground_2', 'skyshereblueprint']
+mesh_names_regex = ['c[\w]*','cy[\w]*', 'ob[\w]*', 'g[\w]*', 'skyshereblueprint',
+                    'bwb[\w]tcr[\w]*', 'bwf[\w]tcr[\w]*', 
+                    'fwb[\w]tcr[\w]*', 'fwf[\w]tcr[\w]*', 
+                    'lwb[\w]tcr[\w]*', 'lwf[\w]tcr[\w]*', 
+                    'rwb[\w]tcr[\w]*', 'rwf[\w]tcr[\w]*']
+
+mesh_names = ['c1','cy1', 'ob1', 'g1', 'skyshereblueprint',
+                    'bwb_tcr_01', 'bwf_tcr_01', 
+                    'fwb_tcr_01', 'fwf_tcr_01', 
+                    'lwb_tcr_01', 'lwf_tcr_01', 
+                    'rwb_tcr_01', 'rwf_tcr_01']
 
 for idx, mesh_name in enumerate(mesh_names_regex):
-    client.simSetSegmentationObjectID(mesh_name, idx*50, True)
+    client.simSetSegmentationObjectID(mesh_name, idx*13, True)
 
 color_checks_path = '/media/student/New Volume/fernand0labra/ros-airsim-compatibility/workspace/src/simulation/docs/seg_rgbs.txt'
 color_checks = pd.read_csv(color_checks_path, sep = ' ', header=None)
