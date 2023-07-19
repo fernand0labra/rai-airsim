@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../ros-openvins-calibration"
+		},
+		{
+			"path": "../../../UnrealEngine-4.27"
+		},
+		{
+			"path": "../../../AirSim"
+		}
+	]
+}

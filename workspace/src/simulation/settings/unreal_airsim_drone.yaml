@@ -9,7 +9,7 @@ sensors:
   Scene_cam:
     sensor_type: Camera
     image_type: Scene
-    rate: 3
+    rate: 10
     CaptureSettings:   
       Width: 960
       Height: 720
@@ -23,7 +23,7 @@ sensors:
   Depth_cam:
     sensor_type: Camera
     image_type: DepthPlanar
-    rate: 3
+    rate: 10
     pixels_as_float: true
     CaptureSettings:   
       Width: 960
@@ -37,8 +37,8 @@ sensors:
    
   Seg_cam:
     sensor_type: Camera
-    image_type: Segmentation
-    rate: 3
+    image_type: Infrared
+    rate: 10
     CaptureSettings:   
       Width: 960
       Height: 720
@@ -51,7 +51,7 @@ sensors:
       
   Lidar:
     sensor_type: Lidar
-    rate: 3
+    rate: 10
     T_B_S:  # Transformation to the sensor link in body-frame (0 yaw, 30 pitch, 0 roll)
       - [0.8660254,   0.0000000,  0.5000000, 0]
       - [0.0000000,   1.0000000,  0.0000000, 0]
@@ -71,6 +71,19 @@ sensors:
 processors:
   RGBD_cam:
     processor_type: DepthToPointcloud
-    depth_camera_name: Depth_cam
-    segmentation_camera_name: Seg_cam
-    color_camera_name: Seg_cam
+
+    depth_camera_topic: /airsim_drone/Depth_cam_to_scene
+    segmentation_camera_topic: /airsim_drone/Seg_cam_compensated
+    color_camera_name: Scene_cam
+
+    max_queue_length: 20
+    max_depth: 1e10f
+    max_ray_length: 1e10f
+
+  Infrared_cam:
+    processor_type: InfraredIdCompensation
+
+    input_topic: /airsim_drone/Seg_cam
+    output_topic: /airsim_drone/Seg_cam_compensated
+
+    correction_file: /home/student/Documents/AirSim/infrared_corrections.csv
