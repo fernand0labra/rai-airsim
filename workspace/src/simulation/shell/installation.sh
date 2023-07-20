@@ -64,12 +64,8 @@ roslaunch airsim_ros_pkgs rviz.launch;
 
 # Mesh Position
 sudo apt-get install python3-wstool python3-catkin-tools ros-noetic-cmake-modules ros-noetic-tf2-sensor-msgs
-git clone https://github.com/ethz-asl/unreal_airsim.git
-git clone https://github.com/ethz-asl/voxblox.git
-git clone https://github.com/ethz-asl/voxgraph.git
-git clone https://github.com/ethz-asl/cblox
-git clone https://github.com/ethz-asl/protobuf_catkin
-git clone https://github.com/ethz-asl/ceres_catkin
+# git clone https://github.com/ethz-asl/unreal_airsim.git
+git clone https://github.com/ros-perception/image_pipeline
 
 wstool init . .rosinstall  # If non existant
 wstool update
@@ -88,3 +84,5 @@ pip3 install --upgrade scipy
 # With generic configuration
 roslaunch unreal_airsim parse_config_to_airsim.launch source:=./src/simulation/settings/unreal_airsim_drone.yaml
 roslaunch unreal_airsim demo.launch
+
+sudo apt-get install ros-noetic-image-pipeline ros-noetic-nodelet

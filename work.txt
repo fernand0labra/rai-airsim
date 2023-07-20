@@ -150,3 +150,16 @@ https://github.com/microsoft/AirSim/blob/main/docs/InfraredCamera.md
 * https://github.com/unrealcv/unrealcv/issues/14
 * https://gist.github.com/edz-o/84d63fec2fc2d70721e775337c07e9c9#file-depth_conversion-py
 * https://github.com/microsoft/AirSim/issues/1198
+
+
+##########################################################################
+#                       Week 29 - Thursday 20/07/2023                    #
+##########################################################################
+
+## Investigate ROS packages for RGB Point Cloud Generation
+* http://wiki.ros.org/depth_image_proc
+* http://wiki.ros.org/nodelet/Tutorials/Running%20a%20nodelet
+
+## Investigate AirSim implementation for RGB Point Cloud Generation
+* https://github.com/microsoft/AirSim/blob/main/PythonClient/multirotor/point_cloud.py
+* https://docs.opencv.org/3.4/d9/d0c/group__calib3d.html
