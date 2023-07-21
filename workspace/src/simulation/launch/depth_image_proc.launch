@@ -1,9 +1,31 @@
+<!-- -->
+<!-- Convert the depth image and the rgb image into a xyzrgb Point Cloud -->
 <launch>
 
-  <node pkg="nodelet" type="nodelet" name="nodelet_manager" args="manager" />
+    <node name="synchronize_timestamp" pkg="depth_image_proc" type="synchronize_timestamp.py" output="screen" />
 
-  <node pkg="nodelet" type="nodelet" name="nodelet_client" args="load depth_image_proc/point_cloud_xyzrgb nodelet_manager"/>
+    <!-- Nodelet manager for this pipeline -->
+    <node pkg="nodelet" type="nodelet" args="manager" name="standalone_nodelet" output="screen"/>
 
-  <node type="rviz" name="rviz" pkg="rviz" args="-d $(find unreal_airsim)/cfg/visualization/demo.rviz"/>
+    <!-- Convert to point cloud -->
+    <node pkg="nodelet" type="nodelet" name="depth_image_proc" args="load depth_image_proc/point_cloud_xyzrgb standalone_nodelet --no-bond">
+   
+        <!--remap from your specific sensors-->         
+
+        <!-- Input: Camera calibration and metadata.  (sensor_msgs/CameraInfo) -->
+        <remap from="rgb/camera_info" to="/camera/camera_info"/>
+
+        <!-- Input: Rectified color image. (sensor_msgs/Image) -->
+        <remap from="rgb/image_rect_color" to="/camera/rgb"/>
+
+        <!-- Input: Rectified depth image, registered to the RGB camera. (sensor_msgs/Image) -->
+        <remap from="depth_registered/image_rect" to="/camera/depth"/>
+
+        <!-- Output: XYZ point cloud. If using PCL, subscribe as PointCloud<PointXYZ>.  (sensor_msgs/PointCloud2) -->
+        <remap from="depth_registered/points" to="/camera/point_cloud"/>
+
+    </node>
 
 </launch>
+
+<!-- -->

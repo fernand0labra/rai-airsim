@@ -163,3 +163,12 @@ https://github.com/microsoft/AirSim/blob/main/docs/InfraredCamera.md
 ## Investigate AirSim implementation for RGB Point Cloud Generation
 * https://github.com/microsoft/AirSim/blob/main/PythonClient/multirotor/point_cloud.py
 * https://docs.opencv.org/3.4/d9/d0c/group__calib3d.html
+
+
+##########################################################################
+#                        Week 29 - Friday 21/07/2023                     #
+##########################################################################
+
+## Investigate ROS packages for RGB Point Cloud Generation
+
+## Investigate Camera Intrinsics and Projection Matrix
