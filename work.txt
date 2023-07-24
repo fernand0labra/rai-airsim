@@ -172,3 +172,10 @@ https://github.com/microsoft/AirSim/blob/main/docs/InfraredCamera.md
 ## Investigate ROS packages for RGB Point Cloud Generation
 
 ## Investigate Camera Intrinsics and Projection Matrix
+
+
+##########################################################################
+#                        Week 30 - Monday 24/07/2023                     #
+##########################################################################
+
+## Solve Mesh Segmentation PointCloud Generation

@@ -11,10 +11,6 @@ import airsim
 
 color = (0,255,0)
 rgb = "%d %d %d" % color
-projectionMatrix = np.array([[-0.501202762, 0.000000000, 0.000000000, 0.000000000],
-                              [0.000000000, -0.501202762, 0.000000000, 0.000000000],
-                              [0.000000000, 0.000000000, 10.00000000, 100.00000000],
-                              [0.000000000, 0.000000000, -10.0000000, 0.000000000]], dtype=np.float32)
 
 def savePointCloud(image, fileName):
    f = open(fileName, "w")
@@ -50,24 +46,20 @@ def callback(image: airsim.ImageResponse):
     # point_depth_converted_float64 = depth_conversion(point_depth_float64, point_depth_float64.shape[1] / 2)
     # point_depth_converted_uint8 = point_depth_converted_float64.view(np.uint8).astype(np.uint8)
 
-    # plt.imshow(point_depth_float64, cmap="Greys")
-    # plt.show()
-
-    # plt.imshow(point_depth_converted_float64, cmap="Greys")
-    # plt.show()
-
     byte_array_uint8 = cv2.imdecode(np.frombuffer(bytearray(image.image_data_uint8), np.uint8) , cv2.IMREAD_UNCHANGED)
-    point_depth_float32 = byte_array_uint8.view(np.float32).astype(np.float32).reshape(image.height, image.width)
+    # point_depth_float32 = byte_array_uint8.view(np.float32).astype(np.float32).reshape(image.height, image.width)
 
     # point_depth_converted_float32 = depth_conversion(point_depth_float32, point_depth_float32.shape[1] / 2)
     # point_depth_converted_uint8 = point_depth_converted_float32.view(np.uint8).astype(np.uint8)
 
-    point_cloud = cv2.reprojectImageTo3D(byte_array_uint8.reshape(image.height, image.width), projectionMatrix)
-    # savePointCloud(point_cloud, "point_cloud.asc")
+    projectionMatrix = client.simGetCameraInfo("Depth_cam").proj_mat
 
-    global depth_to_plane_msg
-    depth_to_plane_msg = image
-    depth_to_plane_msg.data = np.ndarray.tolist(byte_array_uint8)
+    point_cloud = cv2.reprojectImageTo3D(byte_array_uint8.reshape(image.height, image.width), projectionMatrix)
+    savePointCloud(point_cloud, "point_cloud.asc")
+
+    # global depth_to_plane_msg
+    # depth_to_plane_msg = image
+    # depth_to_plane_msg.data = np.ndarray.tolist(byte_array_uint8)
 
     # global point_cloud_msg
     # point_cloud_msg.header.frame_id = depth_to_plane_msg.header.frame_id
@@ -84,7 +76,7 @@ def callback(image: airsim.ImageResponse):
 
 # depth_to_plane_msg = Image()
 client = airsim.MultirotorClient()
-depth_to_plane_msg = client.simGetImages([airsim.ImageRequest("camera_2", airsim.ImageType.DepthPlanar, False, True)])[0]
+depth_to_plane_msg = client.simGetImages([airsim.ImageRequest("Depth_cam", airsim.ImageType.DepthPlanar, False, True)])[0]
 callback(depth_to_plane_msg)
 # point_cloud_msg = PointCloud2()
 

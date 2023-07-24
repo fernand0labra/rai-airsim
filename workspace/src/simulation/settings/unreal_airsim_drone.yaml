@@ -8,11 +8,11 @@ ViewMode: Manual
 sensors:
   Scene_cam:
     sensor_type: Camera
-    image_type: Scene
+    image_type: Segmentation
     rate: 10
     CaptureSettings:   
-      Width: 960
-      Height: 720
+      Width: 680
+      Height: 460
       FOV_Degrees: 90
     T_B_S:
       - [1, 0, 0, 0.3]
@@ -22,12 +22,12 @@ sensors:
       
   Depth_cam:
     sensor_type: Camera
-    image_type: DepthPlanar
+    image_type: DepthPerspective
     rate: 10
     pixels_as_float: true
     CaptureSettings:   
-      Width: 960
-      Height: 720
+      Width: 680
+      Height: 460
       FOV_Degrees: 90
     T_B_S:
       - [1, 0, 0, 0.3]
@@ -40,8 +40,8 @@ sensors:
     image_type: Infrared
     rate: 10
     CaptureSettings:   
-      Width: 960
-      Height: 720
+      Width: 680
+      Height: 460
       FOV_Degrees: 90
     T_B_S:
       - [1, 0, 0, 0.3]
@@ -72,8 +72,8 @@ processors:
   RGBD_cam:
     processor_type: DepthToPointcloud
 
-    depth_camera_topic: /airsim_drone/Depth_cam_to_scene
-    segmentation_camera_topic: /airsim_drone/Seg_cam_compensated
+    depth_camera_topic: /airsim_drone/Depth_cam
+    segmentation_camera_topic: /airsim_drone/Seg_cam
     color_camera_name: Scene_cam
 
     max_queue_length: 20
