@@ -185,4 +185,11 @@ https://github.com/microsoft/AirSim/blob/main/docs/InfraredCamera.md
 #                       Week 30 - Tuesday 25/07/2023                     #
 ##########################################################################
 
-## 
+#### Useful Links ####
+https://github.com/matterport/habitat-matterport-3dresearch
+https://avaturn.me/blog/convert-glb-to-fbx/
+https://docs.avaturn.me/docs/what-is-avaturn/
+
+## Obtain Matterport dataset and transform GLB File to FBX
+
+## Update README.md
