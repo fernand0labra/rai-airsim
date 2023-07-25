@@ -187,8 +187,7 @@ https://github.com/microsoft/AirSim/blob/main/docs/InfraredCamera.md
 
 #### Useful Links ####
 https://github.com/matterport/habitat-matterport-3dresearch
-https://avaturn.me/blog/convert-glb-to-fbx/
-https://docs.avaturn.me/docs/what-is-avaturn/
+https://www.youtube.com/watch?v=gFrWvuzvhAo
 
 ## Obtain Matterport dataset and transform GLB File to FBX
 

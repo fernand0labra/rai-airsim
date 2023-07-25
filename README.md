@@ -73,7 +73,7 @@ Microsoft AirSim is an open-source simulation platform developed by Microsoft Re
 </tr>
 <tr>
 <td><img src="docs/imgs/airsim-demo-3.png"/></td>
-<!-- <td><img src="docs/imgs/airsim-demo-4.png"/></td> -->
+<td><img src="docs/imgs/airsim-demo-4.png"/></td>
 </tr>
 </table>
 
