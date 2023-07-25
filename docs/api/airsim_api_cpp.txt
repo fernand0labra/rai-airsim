@@ -1,0 +1,110 @@
+#------------------------------------------------------#
+#                      Vehicle API                     #
+#------------------------------------------------------#
+
+# *** LOCATION ***
+# AirLib/src/api/RpcLibClientBase.cpp
+
+#------------------------------------------------------#
+#                     Multirotor API                   #
+#------------------------------------------------------#
+
+# *** LOCATION ***
+# AirLib/src/vehicles/multirotor/api/MultirotorApiBase.cpp
+
+
+# *** MAIN ***
+# void MultirotorApiBase::resetImplementation()
+# ---ASYNC bool MultirotorApiBase::takeoff(float timeout_sec)
+# ---ASYNC bool MultirotorApiBase::land(float timeout_sec)
+# ---ASYNC bool MultirotorApiBase::goHome(float timeout_sec)
+# ---ASYNC bool MultirotorApiBase::hover()
+
+
+# *** MOVE BY MOTOR ***
+# ---ASYNC bool MultirotorApiBase::moveByMotorPWMs(float front_right_pwm, float rear_left_pwm, float front_left_pwm, float rear_right_pwm, float duration)
+
+
+# *** MOVE BY VELOCITY ***
+# ---ASYNC bool MultirotorApiBase::moveByVelocityBodyFrame(float vx, float vy, float vz, float duration, DrivetrainType drivetrain, const YawMode& yaw_mode)
+# ---ASYNC bool MultirotorApiBase::moveByVelocityZBodyFrame(float vx, float vy, float z, float duration, DrivetrainType drivetrain, const YawMode& yaw_mode)
+# ---ASYNC bool MultirotorApiBase::moveByVelocity(float vx, float vy, float vz, float duration, DrivetrainType drivetrain, const YawMode& yaw_mode)
+# ---ASYNC bool MultirotorApiBase::moveByVelocityZ(float vx, float vy, float z, float duration, DrivetrainType drivetrain, const YawMode& yaw_mode)
+# void MultirotorApiBase::moveByVelocityInternal(float vx, float vy, float vz, const YawMode& yaw_mode)
+# void MultirotorApiBase::moveByVelocityZInternal(float vx, float vy, float z, const YawMode& yaw_mode)
+
+
+# *** MOVE BY ROLL ***
+# ---ASYNC bool MultirotorApiBase::moveByRollPitchYawZ(float roll, float pitch, float yaw, float z, float duration)
+# ---ASYNC bool MultirotorApiBase::moveByRollPitchYawThrottle(float roll, float pitch, float yaw, float throttle, float duration)
+# ---ASYNC bool MultirotorApiBase::moveByRollPitchYawrateThrottle(float roll, float pitch, float yaw_rate, float throttle, float duration)
+# ---ASYNC bool MultirotorApiBase::moveByRollPitchYawrateZ(float roll, float pitch, float yaw_rate, float z, float duration)
+
+# void MultirotorApiBase::moveByRollPitchYawZInternal(float roll, float pitch, float yaw, float z)
+# void MultirotorApiBase::moveByRollPitchYawThrottleInternal(float roll, float pitch, float yaw, float throttle)
+# void MultirotorApiBase::moveByRollPitchYawrateThrottleInternal(float roll, float pitch, float yaw_rate, float throttle)
+# void MultirotorApiBase::moveByRollPitchYawrateZInternal(float roll, float pitch, float yaw_rate, float z)
+
+
+# *** MOVE BY ANGLE ***
+# ---ASYNC bool MultirotorApiBase::moveByAngleRatesZ(float roll_rate, float pitch_rate, float yaw_rate, float z, float duration)
+# ---ASYNC bool MultirotorApiBase::moveByAngleRatesThrottle(float roll_rate, float pitch_rate, float yaw_rate, float throttle, float duration)
+# void MultirotorApiBase::moveByAngleRatesZInternal(float roll_rate, float pitch_rate, float yaw_rate, float z)
+# void MultirotorApiBase::moveByAngleRatesThrottleInternal(float roll_rate, float pitch_rate, float yaw_rate, float throttle)
+
+
+# *** MOVE BY ? ***
+# ---ASYNC bool MultirotorApiBase::moveByManual(float vx_max, float vy_max, float z_min, float duration, DrivetrainType drivetrain, const YawMode& yaw_mode)
+# void MultirotorApiBase::moveByRC(const RCData& rc_data)
+
+
+# *** MOVE TO ? ***
+# ---ASYNC bool MultirotorApiBase::moveToPosition(float x, float y, float z, float velocity, float timeout_sec, DrivetrainType drivetrain,
+#                                        const YawMode& yaw_mode, float lookahead, float adaptive_lookahead)
+# ---ASYNC bool MultirotorApiBase::moveToZ(float z, float velocity, float timeout_sec, const YawMode& yaw_mode,
+#                                 float lookahead, float adaptive_lookahead)
+# void MultirotorApiBase::moveToPathPosition(const Vector3r& dest, float velocity, DrivetrainType drivetrain, /* pass by value */ YawMode yaw_mode, float last_z)
+# void MultirotorApiBase::moveToPositionInternal(const Vector3r& dest, const YawMode& yaw_mode)
+
+
+# *** MOVE ON ? ***
+# ---ASYNC bool MultirotorApiBase::moveOnPath(const vector<Vector3r>& path, float velocity, float timeout_sec, DrivetrainType drivetrain, const YawMode& yaw_mode,
+
+
+# *** ROTATE TO/BY YAW ***
+# ---ASYNC bool MultirotorApiBase::rotateToYaw(float yaw, float timeout_sec, float margin)
+# ---ASYNC bool MultirotorApiBase::rotateByYawRate(float yaw_rate, float duration)
+
+# *** OTHERS ***
+
+# ---ASYNC void MultirotorApiBase::setAngleLevelControllerGains(const vector<float>& kp, const vector<float>& ki, const vector<float>& kd)
+# ---ASYNC void MultirotorApiBase::setAngleRateControllerGains(const vector<float>& kp, const vector<float>& ki, const vector<float>& kd)
+# ---ASYNC void MultirotorApiBase::setVelocityControllerGains(const vector<float>& kp, const vector<float>& ki, const vector<float>& kd)
+# ---ASYNC void MultirotorApiBase::setPositionControllerGains(const vector<float>& kp, const vector<float>& ki, const vector<float>& kd)
+
+# bool MultirotorApiBase::waitForZ(float timeout_sec, float z, float margin)
+# RCData MultirotorApiBase::estimateRCTrims(float trimduration, float minCountForTrim, float maxTrim)
+
+# ---ASYNC bool MultirotorApiBase::setSafety(SafetyEval::SafetyViolationType enable_reasons, float obs_clearance, SafetyEval::ObsAvoidanceStrategy obs_startegy,
+#                                   float obs_avoidance_vel, const Vector3r& origin, float xy_length, float max_z, float min_z)
+# void MultirotorApiBase::setSafetyEval(const shared_ptr<SafetyEval> safety_eval_ptr)
+
+# bool MultirotorApiBase::safetyCheckVelocity(const Vector3r& velocity)
+# bool MultirotorApiBase::safetyCheckVelocityZ(float vx, float vy, float z)
+# bool MultirotorApiBase::safetyCheckDestination(const Vector3r& dest_pos)
+
+# bool MultirotorApiBase::emergencyManeuverIfUnsafe(const SafetyEval::EvalResult& result)
+
+
+# float MultirotorApiBase::setNextPathPosition(const vector<Vector3r>& path, const vector<PathSegment>& path_segs,
+#                                              const PathPosition& cur_path_loc, float next_dist, PathPosition& next_path_loc)
+
+# void MultirotorApiBase::adjustYaw(const Vector3r& heading, DrivetrainType drivetrain, YawMode& yaw_mode)
+# void MultirotorApiBase::adjustYaw(float x, float y, DrivetrainType drivetrain, YawMode& yaw_mode)
+
+# bool MultirotorApiBase::isYawWithinMargin(float yaw_target, float margin) const
+
+# float MultirotorApiBase::getAutoLookahead(float velocity, float adaptive_lookahead,
+#                                           float max_factor, float min_factor) const
+
+# float MultirotorApiBase::getObsAvoidanceVelocity(float risk_dist, float max_obs_avoidance_vel) const

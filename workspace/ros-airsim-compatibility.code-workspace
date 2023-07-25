@@ -4,13 +4,13 @@
 			"path": ".."
 		},
 		{
-			"path": "../../ros-openvins-calibration"
-		},
-		{
 			"path": "../../../UnrealEngine-4.27"
 		},
 		{
 			"path": "../../../AirSim"
+		},
+		{
+			"path": "src/unreal_airsim"
 		}
 	]
 }

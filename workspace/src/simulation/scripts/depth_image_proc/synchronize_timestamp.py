@@ -42,11 +42,12 @@ print("projection_matrix -->", projection_matrix)
 class update_frame_id:
     def __init__(self):
 
-        #subscribe to your specific sensors
+        # Airsim ROS Wrapper
         self.sub_raw = rospy.Subscriber("/airsim_node/Drone_1/camera_1/Scene", Image, self.callback_raw)
         self.sub_depth = rospy.Subscriber("/airsim_node/Drone_1/camera_2/DepthPlanar", Image, self.callback_depth)
         self.sub_info = rospy.Subscriber("/airsim_node/Drone_1/camera_2/DepthPlanar/camera_info", CameraInfo, self.callback_info)
 
+        # ethz-asl/unreal_airsim ROS package
         # self.sub_raw = rospy.Subscriber("/airsim_node/airsim_drone/Scene_cam/Scene", Image, self.callback_raw)
         # self.sub_depth = rospy.Subscriber("/airsim_node/airsim_drone/Depth_cam/DepthPlanar", Image, self.callback_depth)
         # self.sub_info = rospy.Subscriber("/airsim_node/airsim_drone/Depth_cam/DepthPlanar/camera_info", CameraInfo, self.callback_info)
@@ -65,9 +66,6 @@ class update_frame_id:
         scene_image.header.stamp = current_timestamp
 
     def callback_info(self, message):
-        # projection_matrix_form = client.simGetCameraInfo("camera_2").proj_mat.matrix
-        # projection_matrix = projection_matrix_form[0] + projection_matrix_form[1] + projection_matrix_form[2]
-
         global camera_info
         camera_info = message
         camera_info.header.frame_id = "world_enu"
