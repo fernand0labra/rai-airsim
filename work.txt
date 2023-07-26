@@ -192,3 +192,16 @@ https://www.youtube.com/watch?v=gFrWvuzvhAo
 ## Obtain Matterport dataset and transform GLB File to FBX
 
 ## Update README.md
+
+
+##########################################################################
+#                     Week 30 - Wednesday 26/07/2023                     #
+##########################################################################
+
+#### Useful Links ####
+https://www.youtube.com/watch?v=HIzDW4FlC-U
+https://docs.unrealengine.com/4.27/en-US/RenderingAndGraphics/Materials/HowTo/EmissiveGlow/
+
+## Create Unreal Project with Matterport Meshes of Scene and Segmentation
+
+## Solve lightning on unlit simulation
