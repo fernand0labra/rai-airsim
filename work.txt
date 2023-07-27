@@ -205,3 +205,20 @@ https://docs.unrealengine.com/4.27/en-US/RenderingAndGraphics/Materials/HowTo/Em
 ## Create Unreal Project with Matterport Meshes of Scene and Segmentation
 
 ## Solve lightning on unlit simulation
+
+
+##########################################################################
+#                      Week 30 - Thursday 26/07/2023                     #
+##########################################################################
+
+#### Useful Links ####
+https://matterport.com/blog/announcing-matterport3d-research-dataset
+https://niessner.github.io/Matterport/
+https://github.com/niessner/Matterport
+https://aspis.cmpt.sfu.ca/scene-toolkit/scans/matterport3d/houses
+
+# Solve Depth PointCloud dilated generation
+
+# Publish drone pose and move around Matterport Environment
+
+# Analyze Matterport statistics information
