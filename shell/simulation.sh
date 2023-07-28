@@ -9,7 +9,7 @@
 
 # Start .uproject -> UnrealEngine & AirSim expected to be in the same folder
 ./UnrealEngine-4.27/Engine/Binaries/Linux/UE4Editor ../../../../AirSim/Unreal/Environments/Blocks/Blocks.uproject
-./UnrealEngine-4.27/Engine/Binaries/Linux/UE4Editor ~/Documents/Unreal\ Projects/Architecture/Architecture.uproject
+./UnrealEngine-4.27/Engine/Binaries/Linux/UE4Editor ../../../../AirSim/Unreal/Environments/Matterport/Blocks.uproject
 
 
 ##############################################################

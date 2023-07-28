@@ -222,3 +222,12 @@ https://aspis.cmpt.sfu.ca/scene-toolkit/scans/matterport3d/houses
 # Publish drone pose and move around Matterport Environment
 
 # Analyze Matterport statistics information
+
+
+##########################################################################
+#                       Week 30 - Friday 28/07/2023                      #
+##########################################################################
+
+# Publish drone pose and move around Blocks Environment
+
+# Compute and publish relative ROS distance between meshes and drone
