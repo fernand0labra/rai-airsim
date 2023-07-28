@@ -231,3 +231,5 @@ https://aspis.cmpt.sfu.ca/scene-toolkit/scans/matterport3d/houses
 # Publish drone pose and move around Blocks Environment
 
 # Compute and publish relative ROS distance between meshes and drone
+
+# Update README.md

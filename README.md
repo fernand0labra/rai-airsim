@@ -51,7 +51,7 @@ A game development engine is a software framework that provides developers with 
 
 <table>
 <tr>
-<td><img src="docs/imgs/unreal-example-1.jpeg"/></td>
+<td><img src="docs/imgs/unreal-example-1.jpg"/></td>
 <td><img src="docs/imgs/unreal-example-2.jpg"/></td>
 </tr>
 </table>
@@ -72,23 +72,183 @@ Microsoft AirSim is an open-source simulation platform developed by Microsoft Re
 <td><img src="docs/imgs/airsim-demo-2.png"/></td>
 </tr>
 <tr>
-<td><img src="docs/imgs/airsim-demo-3.png"/></td>
-<td><img src="docs/imgs/airsim-demo-4.png"/></td>
+<td><a href="https://youtu.be/-WfTr1-OBGQ"><img src="docs/imgs/airsim-demo-3.png"/></a>
+<p align='Center'>AirSim Demo</p>
+</td>
+<td><a href="https://youtu.be/vL2GVqfyvn0"><img src="docs/imgs/airsim-demo-4.png"/></a>
+<p align='Center'>AirSim HelloDrone Example</p>
+</td>
 </tr>
 </table>
 
 #### What are Meshes?
 
+In computer graphics and 3D modeling, a mesh is a collection of vertices, edges, and faces that together form the shape of a 3D object. It is one of the fundamental data structures used to represent 3D geometry in computer graphics and is widely used in various applications, including video games, animation, virtual reality, and simulation.
+
+By combining vertices, edges, and faces, a mesh can accurately represent complex 3D shapes. Meshes can be textured, shaded, and manipulated to create realistic 3D objects and scenes in computer graphics applications.
+
 #### What is Segmentation?
+
+Segmentation, in the context of computer vision and image processing, refers to the process of dividing an image into distinct regions or segments based on certain criteria. The goal of segmentation is to identify and group pixels or regions that share similar visual characteristics or properties.
+
+Segmentation is a fundamental step in many computer vision tasks, including object detection, image recognition, image editing, and medical image analysis. It plays a crucial role in separating objects of interest from the background, enabling further analysis and decision-making in various applications. The quality and accuracy of the segmentation directly impact the success of downstream tasks that rely on understanding the content of the images.
 
 #### What are Depth Images?
 
-### [About Matterport 3D Research Dataset](https://github.com/matterport/habitat-matterport-3dresearch)
+Depth images, also known as depth maps or depth images, are a type of image that contains information about the distance of objects or surfaces from the camera or sensor that captured the image. In contrast to regular 2D images, which only provide color and intensity information, depth images add an additional dimension that represents the distance or depth of each pixel in the scene.
+
+Depth images are typically represented as grayscale images, where darker pixels correspond to closer objects, and lighter pixels correspond to objects farther away. The depth information is often encoded as a single-channel image, where each pixel value represents the distance from the camera to the corresponding point in the scene.
 
 ## Research Methodology
 
 ### Installation (Ubuntu Focal 20.04)
 
+#### Unreal Engine
+```
+# Download source code
+git clone -b 4.27 https://github.com/EpicGames/UnrealEngine.git
+
+# Give permissions and setup project
+chmod u+x Setup.sh; ./Setup.sh
+chmod u+x GenerateProjectFiles.sh; ./GenerateProjectFiles.sh
+
+# Build source code
+make
+```
+
+#### AirSim Microsoft
+```
+# Install dependencies
+sudo apt-get install libboost-all-dev
+
+# Download source code
+git clone https://github.com/ethz-asl/AirSim.git
+
+# Set the target destination.
+export AIRSIM_PATH=PATH_TO_AIRSIM_FOLDER
+cd $AIRSIM_PATH
+
+# Setup project and build source code
+chmod u+x setup.sh; ./setup.sh 
+chmod u+x build.sh; ./build.sh
+
+#------------------------------------------------------------#
+#             Python API (AirSim/PythonClient)               #
+#------------------------------------------------------------#
+
+# Install dependencies
+pip install msgpack-rpc-python
+
+#------------------------------------------------------------#
+#              Airsim ROS Wrapper (AirSim/ros)               #
+#------------------------------------------------------------#
+
+# Install ROS dependencies
+sudo apt-get install \
+    ros-noetic-tf2-sensor-msgs \
+    ros-noetic-tf2-geometry-msgs \
+    ros-noetic-mavros*
+pip install "git+https://github.com/catkin/catkin_tools.git#egg=catkin_tools"  # Ubuntu 20.02
+
+# Build catkin workspace
+echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+catkin build;
+```
+
+#### ETH-Zürich ASL Unreal AirSim
+```
+# Install ROS dependencies
+sudo apt-get install \
+    python3-wstool \
+    python3-catkin-tools \
+    ros-noetic-cmake-modules \
+    ros-noetic-tf2-sensor-msgs \
+    python-is-python3
+
+# Upgrade dependencies
+pip3 install --upgrade scipy
+
+# Download source code
+git clone https://github.com/ethz-asl/unreal_airsim.git
+wstool init . .rosinstall  # If non existant
+wstool update
+
+# Build catkin workspace
+cd ~/ros-airsim/workspace/src/unreal_airsim/
+echo "set(AIRSIM_ROOT $AIRSIM_PATH)" > ./AirsimPath.txt
+catkin build unreal_airsim
+```
+
+#### ROS Image Pipeline
+```
+# Install dependencies and ROS package
+sudo apt-get install \
+    ros-noetic-image-pipeline \
+    ros-noetic-nodelet
+```
+
 ### AirSim Simulation
 
+#### Unreal Engine
+```
+# Start Editor
+./UnrealEngine-4.27/Engine/Binaries/Linux/UE4Editor
+
+# Start Editor with .uproject -> UnrealEngine & AirSim expected to be in the same folder
+# ./UnrealEngine-4.27/Engine/Binaries/Linux/UE4Editor ../../../../AirSim/Unreal/Environments/ProjectName/ProjectName.uproject
+```
+
+#### AirSim Microsoft
+```
+#------------------------------------------------------------#
+#             Python API (AirSim/PythonClient)               #
+#------------------------------------------------------------#
+
+# Run AirSim Drone Example
+cd AirSim/PythonClient/multirotor; python3 hello_drone.py  
+
+#------------------------------------------------------------#
+#              Airsim ROS Wrapper (AirSim/ros)               #
+#------------------------------------------------------------#
+
+source devel/setup.bash;
+roslaunch airsim_ros_pkgs airsim_node.launch;  # Launch ROS wrapper
+roslaunch airsim_ros_pkgs rviz.launch;  # Launch RVIZ visualizer
+```
+
+#### ETH-Zürich ASL Unreal AirSim
+```
+# Parse generic configuration
+roslaunch unreal_airsim parse_config_to_airsim.launch
+
+# Parse specific configuration
+# roslaunch unreal_airsim parse_config_to_airsim.launch source:=path/to/my_settings.yaml
+
+# Launch ROS package
+roslaunch unreal_airsim demo.launch
+```
+
+<table>
+<tr>
+<td><img src="docs/imgs/blocks-rviz.png"/></td>
+<td><img src="docs/imgs/blocks-rviz-seg.png"/></td>
+</tr>
+<tr>
+<td><a href="https://youtu.be/Hcabzt2qfYs"><img src="docs/imgs/airsim-blocks-simulation.png"/></a>
+<p align='Center'>AirSim Blocks - Simulation</p>
+</td>
+<td><a href="https://youtu.be/D-7ADvh2-3Q"><img src="docs/imgs/airsim-blocks-mesh-pointcloud.png"/></a>
+<p align='Center'>AirSim Blocks - Mesh PointCloud</p>
+</td>
+</tr>
+</table>
+
 ### Dataset Generation
+
+```
+nav_msgs/Odometry odom_gt                   # Ground Truth Odometry
+sensor_msgs/Image seg_img                   # Segmentation Image
+std_msgs/UInt8MultiArray mesh_ids           # Mesh Components by ID
+geometry_msgs/PoseArray mesh_location       # Mesh Locations by Pose
+```
