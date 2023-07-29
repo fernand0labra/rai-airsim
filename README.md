@@ -306,11 +306,16 @@ $$
 \begin{aligned}
 10^{-2}*x^U = x^A = x^R && && 
 10^{-2}*y^U = y^A = -y^R && &&  
-10^{-2}*z^U = -z^A = z^R \\
-\end{aligned} \\
+10^{-2}*z^U = -z^A = z^R
+\end{aligned}
+$$
 
-Considering \ all \ coordinates \ to \ be \ in \ meters \\
-U = Unreal \ \  \ A = AirSim \ \ \  R = ROS \\
+$$
+Considering \ all \ coordinates \ to \ be \ in \ meters
+$$
+
+$$
+U = Unreal \ \  \ A = AirSim \ \ \  R = ROS
 $$
 
 The first step is to find the absolute start position of the Mesh and the Multirotor Vehicle wrt. AirsSim world:
@@ -321,26 +326,28 @@ $$
 && && 
 \overrightarrow{m}^U_t=[x^U_{mt}, y^U_{mt}, z^U_{mt}] && && 
 Absolute \ position \ wrt. \ Unreal \ World \\
-
 \overrightarrow{p}^A_0=[x^A_{p0}, y^A_{p0}, z^A_{p0}] && &&
 \overrightarrow{p}^A_t=[x^A_{pt}, y^A_{pt}, z^A_{pt}] && && 
 \overrightarrow{m}^A_t=[x^A_{mt}, y^A_{mt}, z^A_{mt}] && && 
-Absolute \ position \ wrt. \ AirSim \ World \\
-\end{aligned} \\ 
+Absolute \ position \ wrt. \ AirSim \ World
+\end{aligned}
 $$
 
 $$
-Where \ \overrightarrow{p} \ is \ the \ Position \ of \ the \ Multirotor \ Vehicle \\
-Where \ \overrightarrow{m} \ is \ the \ Position \ of \ the \ Mesh \\
+Where \ \overrightarrow{p} \ is \ the \ Position \ of \ the \ Multirotor \ Vehicle
+$$
+
+$$
+Where \ \overrightarrow{m} \ is \ the \ Position \ of \ the \ Mesh
 $$
 
 $$ 
 \begin{aligned}
-\overrightarrow{p}^A_0=[x^A_{p0}, y^A_{p0}, z^A_{p0}] && &&
-x^A_{p0} = 10^{-2} * x^U_{p0} && && 
-y^A_{p0} = 10^{-2} * y^U_{p0} && && 
-z^A_{p0} = - 10^{-2} * z^U_{p0} \\
-\end{aligned} \\
+\overrightarrow{p}^A_0=[x^A_{p0}, y^A_{p0}, z^A_{p0}] && && 
+x^A_{p0} = 10^{-2} * x^U_{p0} && &&  
+y^A_{p0} = 10^{-2} * y^U_{p0} && &&  
+z^A_{p0} = - 10^{-2} * z^U_{p0}
+\end{aligned}
 $$
 
 $$ 
@@ -348,40 +355,36 @@ $$
 \overrightarrow{m}^A_t=[x^A_{mt}, y^A_{mt}, z^A_{mt}] && && 
 x^A_{mt} = 10^{-2} * x^U_{mt} && && 
 y^A_{mt} = 10^{-2} * y^U_{mt} && && 
-z^A_{mt} = - 10^{-2} * z^U_{mt} \\
-\end{aligned} \\
+z^A_{mt} = - 10^{-2} * z^U_{mt}
+\end{aligned}
 $$
 
 The second step is to obtain the relative position of the Mesh wrt. the Multirotor Vehicle in AirSim coordinates. It's necessary to substract the initial position of the Multirotor Vehicle as the position obtained from the AirSim simulation is considered to be [0, 0, 0] while adding the current position for shifting that of the meshes at every timestep t :
 
 $$
-\begin{aligned}
-\overrightarrow{m}^{Ar}_t=[x^{Ar}_{mt}, y^{Ar}_{mt}, z^{Ar}_{mt}]
-\end{aligned} \\
+\overrightarrow{m}^{Ar\}_{t}=[x^{Ar}\_{mt}, y^{Ar}\_{mt}, z^{Ar}\_{mt}]
 $$
 
 $$
 \begin{aligned}
-x^{Ar}_{mt} = x^A_{pt} + (x^A_{mt} - x^A_{p0}) && && 
-y^{Ar}_{mt} = y^A_{pt} + (y^A_{mt} - y^A_{p0}) && && 
-z^{Ar}_{mt} = z^A_{pt} + (z^A_{mt} - z^A_{p0})
-\end{aligned} \\
+x^{Ar}\_{mt} = x^A_{pt} + (x^A_{mt} - x^A_{p0}) && && 
+y^{Ar}\_{mt} = y^A_{pt} + (y^A_{mt} - y^A_{p0}) && && 
+z^{Ar}\_{mt} = z^A_{pt} + (z^A_{mt} - z^A_{p0})
+\end{aligned}
 $$
 
-The last step is to transform the relative position of the Mesh wrt.. the Multirotor Vehicle into ROS coordinates:
+The last step is to transform the relative position of the Mesh wrt. the Multirotor Vehicle into ROS coordinates:
 
 $$
-\begin{aligned}
-\overrightarrow{m}^{Rr}_t=[x^{Rr}_{mt}, y^{Rr}_{mt}, z^{Rr}_{mt}]
-\end{aligned} \\
+\overrightarrow{m}^{Rr}\_t=[x^{Rr}\_{mt}, y^{Rr}\_{mt}, z^{Rr}\_{mt}]
 $$
 
 $$
 \begin{aligned}
-x^{Rr}_{mt} = x^{Ar}_{mt} = x^A_{pt} + (x^A_{mt} - x^A_{p0}) && &&  
-y^{Rr}_{mt} = - y^{Ar}_{mt} = -(y^A_{pt} + (y^A_{mt} - y^A_{p0})) && &&
-z^{Rr}_{mt} = - z^{Ar}_{mt} = -(z^A_{pt} + (z^A_{mt} - z^A_{p0}))
-\end{aligned} \\
+x^{Rr}\_{mt} = x^{Ar}\_{mt} = x^A_{pt} + (x^A_{mt} - x^A_{p0}) && &&  
+y^{Rr}\_{mt} = - y^{Ar}\_{mt} = -(y^A_{pt} + (y^A_{mt} - y^A_{p0})) && &&
+z^{Rr}\_{mt} = - z^{Ar}\_{mt} = -(z^A_{pt} + (z^A_{mt} - z^A_{p0}))
+\end{aligned}
 $$
 
 An array of these positional vectors is published as **mesh_location** in the custom message when identified in the segmentation images. The code can be accessed in [/workspace/src/simulation/scripts/airsim/segmentation/blocks/mesh_handler.py](/workspace/src/simulation/scripts/airsim/segmentation/blocks/mesh_handler.py)
