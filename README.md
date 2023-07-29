@@ -104,10 +104,8 @@ Depth images are typically represented as grayscale images, where darker pixels 
 ### Installation (Ubuntu Focal 20.04)
 
 #### [Unreal Engine](https://github.com/EpicGames/UnrealEngine.git)
-For downloading the source code it is necessary to join the Epic Games Github organization as explained in this [tutorial](https://docs.unrealengine.com/4.27/en-US/SharingAndReleasing/Linux/BeginnerLinuxDeveloper/SettingUpAnUnrealWorkflow/).
-
-
-An error '*Engine Modules out of Date*' was encountered during compilation of Unreal which is solved in th following [Epic Games Forum](https://forums.unrealengine.com/t/how-to-solve-engine-modules-are-out-of-date/564119/2). 
+* For downloading the source code it is necessary to join the Epic Games Github organization as explained in this [tutorial](https://docs.unrealengine.com/4.27/en-US/SharingAndReleasing/Linux/BeginnerLinuxDeveloper/SettingUpAnUnrealWorkflow/). 
+* An error '*Engine Modules out of Date*' was encountered during compilation of Unreal which is solved in the following [Epic Games Forum](https://forums.unrealengine.com/t/how-to-solve-engine-modules-are-out-of-date/564119/2). 
 ```
 # Download source code
 git clone -b 4.27 https://github.com/EpicGames/UnrealEngine.git
@@ -242,7 +240,7 @@ roslaunch airsim_ros_pkgs rviz.launch;  # Launch RVIZ visualizer
 
 #### ETH-Zürich ASL Unreal AirSim
 
-The ETH package uses similar settings as AirSim but in a YAML fashion. An example can be seen under */docs/settings* where the postprocessing is done for obtaining the PointCloud and applying Infrared Compensation.
+The ETH package uses similar settings as AirSim but in a YAML fashion. An example can be seen under [*/docs/settings*](/docs/settings/) where the postprocessing is done for obtaining the PointCloud and applying Infrared Compensation.
 
 The Depth camera type used is **Depth Perspective**, however the distance in the images needs to be transformed to the plane with the Python script [*/workspace/src/simulation/scripts/airsim/depth_conversion.py*](/workspace/src/simulation/scripts/airsim/depth_conversion.py) (2) which generates the topic that the settings will subscribe to.
 
@@ -257,7 +255,7 @@ roslaunch unreal_airsim parse_config_to_airsim.launch
 roslaunch unreal_airsim demo.launch
 ```
 
-The results of the simulation can be seen in the images below obtained from RVIZ visualizer. In the picture below we can see the 3D projection of the PointCloud with the color obtained respectively from the Scene and the Segmentation cameras. 
+The results of the simulation can be seen in the images below obtained from RVIZ visualizer. The 3D projection of the RGBA PointCloud is obtained with color respectively from the Scene and the Segmentation cameras. 
 * The clickable video in the left shows the provided Unreal Blocks environment and the result of changing the position and orientation of the multirotor vehicle [(1)](/workspace/src/simulation/scripts/airsim/multirotor/blocks). 
 * The clickable video in the right shows the result of the simulation obtained from the ROS wrapper provided by ETH, visualizing the images obtained from the sensor and the generated PointCloud after transforming the Depth image [(2)](/workspace/src/simulation/scripts/airsim/depth_conversion.py).
 
@@ -278,9 +276,111 @@ The results of the simulation can be seen in the images below obtained from RVIZ
 
 ### Dataset Generation
 
+With the AirSim simulation and the ETH-Zürich ROS wrapper, a segmentation dataset has been obtained in the form of the following ROS custom message recorded as a rosbag:
+* **odom_gt** :: The real time ground truth odometry of the vehicle wrt.. the AirSim Coordinates.
+* **mesh_location_gt** :: The absolute location of the meshes wrt.. the Unreal Coordinates.
+* **seg_img** :: The segmentation image obtained from the camera sensor.
+* **mesh_ids** :: The meshes recognized by color in the segmentation image and saved as an array of color IDs ([*/docs/segmentation/seg_rgbs.txt*](/docs/segmentation/seg_rgbs.txt))
+* **mesh_location** :: The relative position of the recognized meshes wrt.. the current position of the drone in ASL coordinates (orientation not considered).
+
+The custom message with the ROS types is displayed below.
+
 ```
 nav_msgs/Odometry odom_gt                   # Ground Truth Odometry
+geometry_msgs/PoseArray mesh_location_gt    # Ground Truth Mesh Locations
+
 sensor_msgs/Image seg_img                   # Segmentation Image
 std_msgs/UInt8MultiArray mesh_ids           # Mesh Components by ID
 geometry_msgs/PoseArray mesh_location       # Mesh Locations by Pose
 ```
+
+#### Coordinate Systems Transform
+
+The positional information of the meshes along with the vehicle's odometry are obtained from the AirSim Python client. However, the mesh position is defined on the Unreal coordinate system where as the odometry is in the AirSim coordinate system.
+
+In the image below obtained from the [ETH-Zürich Repository](https://github.com/ethz-asl/unreal_airsim/blob/master/docs/coordinate_systems.md) the different coordinates used are shown where AirSim uses [NED (Noth East Down)](https://en.wikipedia.org/wiki/Local_tangent_plane_coordinates) coordinates and the ETH ROS package uses [ASL](https://www.ros.org/reps/rep-0103.html) (i.e. Right-hand Rule). Moverover, Unreal uses Centimeters as metrics whereas AirSim uses Meters. The following equations are used to transform the absolute position of the meshes wrt. Unreal coordinates into the relative position wrt. AirSim's vehicle position.
+
+
+Let's start by considering the coordinate transformations:
+
+$$ 
+\begin{aligned}
+10^{-2}*x^U = x^A = x^R && && 
+10^{-2}*y^U = y^A = -y^R && &&  
+10^{-2}*z^U = -z^A = z^R
+\end{aligned} \\
+
+Considering \ all \ coordinates \ to \ be \ in \ meters \\
+U = Unreal \ \  \ A = AirSim \ \ \  R = ROS
+$$
+
+The first step is to find the absolute start position of the Mesh and the Multirotor Vehicle wrt. AirsSim world:
+
+$$ 
+\begin{aligned}
+\overrightarrow{p}^U_0=[x^U_{p0}, y^U_{p0}, z^U_{p0}] && &&
+&& && 
+\overrightarrow{m}^U_t=[x^U_{mt}, y^U_{mt}, z^U_{mt}] && && 
+Absolute \ position \ wrt. \ Unreal \ World \\
+
+\overrightarrow{p}^A_0=[x^A_{p0}, y^A_{p0}, z^A_{p0}] && &&
+\overrightarrow{p}^A_t=[x^A_{pt}, y^A_{pt}, z^A_{pt}] && && 
+\overrightarrow{m}^A_t=[x^A_{mt}, y^A_{mt}, z^A_{mt}] && && 
+Absolute \ position \ wrt. \ AirSim \ World
+\end{aligned} \\ 
+$$
+
+$$
+Where \ \overrightarrow{p} \ is \ the \ Position \ of \ the \ Multirotor \ Vehicle \\
+Where \ \overrightarrow{m} \ is \ the \ Position \ of \ the \ Mesh \\
+$$
+
+$$ 
+\begin{aligned}
+\overrightarrow{p}^A_0=[x^A_{p0}, y^A_{p0}, z^A_{p0}] && &&
+x^A_{p0} = 10^{-2} * x^U_{p0} && && 
+y^A_{p0} = 10^{-2} * y^U_{p0} && && 
+z^A_{p0} = - 10^{-2} * z^U_{p0} \\
+\end{aligned} \\
+$$
+
+$$ 
+\begin{aligned}
+\overrightarrow{m}^A_t=[x^A_{mt}, y^A_{mt}, z^A_{mt}] && && 
+x^A_{mt} = 10^{-2} * x^U_{mt} && && 
+y^A_{mt} = 10^{-2} * y^U_{mt} && && 
+z^A_{mt} = - 10^{-2} * z^U_{mt} \\
+\end{aligned} \\
+$$
+
+The second step is to obtain the relative position of the Mesh wrt. the Multirotor Vehicle in AirSim coordinates. It's necessary to substract the initial position of the Multirotor Vehicle as the position obtained from the AirSim simulation is considered to be [0, 0, 0] while adding the current position for shifting that of the meshes at every timestep t :
+
+$$
+\overrightarrow{m}^{Ar}_t=[x^{Ar}_{mt}, y^{Ar}_{mt}, z^{Ar}_{mt}]
+$$
+
+$$
+\begin{aligned}
+x^{Ar}_{mt} = x^A_{pt} + (x^A_{mt} - x^A_{p0}) && && 
+y^{Ar}_{mt} = y^A_{pt} + (y^A_{mt} - y^A_{p0}) && && 
+z^{Ar}_{mt} = z^A_{pt} + (z^A_{mt} - z^A_{p0})
+\end{aligned} \\
+$$
+
+The last step is to transform the relative position of the Mesh wrt.. the Multirotor Vehicle into ROS coordinates:
+
+$$
+\overrightarrow{m}^{Rr}_t=[x^{Rr}_{mt}, y^{Rr}_{mt}, z^{Rr}_{mt}]
+$$
+
+$$
+\begin{aligned}
+x^{Rr}_{mt} = x^{Ar}_{mt} = x^A_{pt} + (x^A_{mt} - x^A_{p0}) && &&  
+y^{Rr}_{mt} = - y^{Ar}_{mt} = -(y^A_{pt} + (y^A_{mt} - y^A_{p0})) && &&
+z^{Rr}_{mt} = - z^{Ar}_{mt} = -(z^A_{pt} + (z^A_{mt} - z^A_{p0}))
+\end{aligned} \\
+$$
+
+An array of these positional vectors is published as **mesh_location** in the custom message when identified in the segmentation images. The code can be accessed in [/workspace/src/simulation/scripts/airsim/segmentation/blocks/mesh_handler.py](/workspace/src/simulation/scripts/airsim/segmentation/blocks/mesh_handler.py)
+
+![ETH Coordinate Systems](/docs/imgs/eth-coordinate-systems.png)
