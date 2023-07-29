@@ -103,7 +103,11 @@ Depth images are typically represented as grayscale images, where darker pixels 
 
 ### Installation (Ubuntu Focal 20.04)
 
-#### Unreal Engine
+#### [Unreal Engine](https://github.com/EpicGames/UnrealEngine.git)
+For downloading the source code it is necessary to join the Epic Games Github organization as explained in this [tutorial](https://docs.unrealengine.com/4.27/en-US/SharingAndReleasing/Linux/BeginnerLinuxDeveloper/SettingUpAnUnrealWorkflow/).
+
+
+An error '*Engine Modules out of Date*' was encountered during compilation of Unreal which is solved in th following [Epic Games Forum](https://forums.unrealengine.com/t/how-to-solve-engine-modules-are-out-of-date/564119/2). 
 ```
 # Download source code
 git clone -b 4.27 https://github.com/EpicGames/UnrealEngine.git
@@ -116,7 +120,10 @@ chmod u+x GenerateProjectFiles.sh; ./GenerateProjectFiles.sh
 make
 ```
 
-#### AirSim Microsoft
+#### [AirSim Microsoft](https://github.com/ethz-asl/AirSim.git)
+
+AirSim Microsoft exposes a C++ API that can be used with both C++ or Python clients. An ROS Wrapper is also provided, that together with the API allows the straightforward edition of e.g. vehicle pose or orientation and feedback from the simulation in the form of e.g. images or world meshes. 
+
 ```
 # Install dependencies
 sudo apt-get install libboost-all-dev
@@ -156,7 +163,10 @@ source ~/.bashrc
 catkin build;
 ```
 
-#### ETH-Zürich ASL Unreal AirSim
+#### [ETH-Zürich ASL Unreal AirSim](https://github.com/ethz-asl/unreal_airsim.git)
+
+ETH-Zürich Autonomous Systems Lab (ASL) offers an ROS package for handling the different coordinates and metrics used in Unreal, Airsim and ROS together with its own wrapper. The available topics are reduced in comparison with AirSim's ROS Wrapper but it offers the postprocessing of Scene, Segmentation and Depth images for obtaining a 3D Colored PointCloud (RGBA).
+
 ```
 # Install ROS dependencies
 sudo apt-get install \
@@ -180,7 +190,10 @@ echo "set(AIRSIM_ROOT $AIRSIM_PATH)" > ./AirsimPath.txt
 catkin build unreal_airsim
 ```
 
-#### ROS Image Pipeline
+#### [ROS Image Pipeline](https://wiki.ros.org/image_pipeline)
+
+Another possibility for obtaining an RGBA PointCloud by handling Scene and Depth images is the ROS image_pipeline group package, that offers the **depth_image_proc** package. The package contains nodelets for processing depth images such as those produced by [OpenNI Camera](https://dev.intelrealsense.com/docs/openni-wrapper). Functions include creating disparity images and point clouds, as well as registering (reprojecting) a depth image into another camera frame.
+
 ```
 # Install dependencies and ROS package
 sudo apt-get install \
@@ -191,6 +204,9 @@ sudo apt-get install \
 ### AirSim Simulation
 
 #### Unreal Engine
+
+The AirSim Blocks environment has been edited to form a rectangle with different geometry objects and allow a more straightforward segmentation comparison. The files that need to be substituted in the original project can be found under [*/workspace/src/Unreal*](/workspace/src/Unreal/) with the same folder structure.
+
 ```
 # Start Editor
 ./UnrealEngine-4.27/Engine/Binaries/Linux/UE4Editor
@@ -200,6 +216,13 @@ sudo apt-get install \
 ```
 
 #### AirSim Microsoft
+
+The available C++ API calls together with the provided ROS Wrapper topics have been written down and can be seen under the [*/docs/api*](/docs/api/) folder.
+
+AirSim utilizes a JSON settings file that should be located by default under *~/Documents/Airsim* . An example is provded under [*/docs/settings*](/docs/settings/) for both a multirotor vehicle (with Scene, Segmentation and Depth cameras) and the CV mode (i.e. no world physics or vehicle). 
+
+Python scripts for these two settings are available under [*/workspace/src/simulation/scripts/airsim/multirotor/blocks*](/workspace/src/simulation/scripts/airsim/multirotor/blocks) (1) that use the Python client for changing the position and orientation of the vehicle or camera respectively.
+
 ```
 #------------------------------------------------------------#
 #             Python API (AirSim/PythonClient)               #
@@ -218,6 +241,11 @@ roslaunch airsim_ros_pkgs rviz.launch;  # Launch RVIZ visualizer
 ```
 
 #### ETH-Zürich ASL Unreal AirSim
+
+The ETH package uses similar settings as AirSim but in a YAML fashion. An example can be seen under */docs/settings* where the postprocessing is done for obtaining the PointCloud and applying Infrared Compensation.
+
+The Depth camera type used is **Depth Perspective**, however the distance in the images needs to be transformed to the plane with the Python script [*/workspace/src/simulation/scripts/airsim/depth_conversion.py*](/workspace/src/simulation/scripts/airsim/depth_conversion.py) (2) which generates the topic that the settings will subscribe to.
+
 ```
 # Parse generic configuration
 roslaunch unreal_airsim parse_config_to_airsim.launch
@@ -228,6 +256,10 @@ roslaunch unreal_airsim parse_config_to_airsim.launch
 # Launch ROS package
 roslaunch unreal_airsim demo.launch
 ```
+
+The results of the simulation can be seen in the images below obtained from RVIZ visualizer. In the picture below we can see the 3D projection of the PointCloud with the color obtained respectively from the Scene and the Segmentation cameras. 
+* The clickable video in the left shows the provided Unreal Blocks environment and the result of changing the position and orientation of the multirotor vehicle [(1)](/workspace/src/simulation/scripts/airsim/multirotor/blocks). 
+* The clickable video in the right shows the result of the simulation obtained from the ROS wrapper provided by ETH, visualizing the images obtained from the sensor and the generated PointCloud after transforming the Depth image [(2)](/workspace/src/simulation/scripts/airsim/depth_conversion.py).
 
 <table>
 <tr>
