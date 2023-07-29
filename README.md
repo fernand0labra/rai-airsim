@@ -326,7 +326,7 @@ Absolute \ position \ wrt. \ Unreal \ World \\
 \overrightarrow{p}^A_0=[x^A_{p0}, y^A_{p0}, z^A_{p0}] && &&
 \overrightarrow{p}^A_t=[x^A_{pt}, y^A_{pt}, z^A_{pt}] && && 
 \overrightarrow{m}^A_t=[x^A_{mt}, y^A_{mt}, z^A_{mt}] && && 
-Absolute \ position \ wrt. \ AirSim \ World
+Absolute \ position \ wrt. \ AirSim \ World \\
 \end{aligned} \\ 
 $$
 
