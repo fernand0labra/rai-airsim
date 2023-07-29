@@ -4,12 +4,11 @@
 1. [Introduction](#introduction)
     1. [About LTU's Robotics & AI Team](#about-ltus-robotics-and-ai-team)
     2. [About ROS](#about-ros)
-    3. [About Unreal](#about-unreal)
+    3. [About Unreal](#about-unreal-427)
     4. [About Microsoft AirSim](#about-microsoft-airsim)
         1. [What are Meshes?](#what-are-meshes)
         2. [What is Segmentation?](#what-is-segmentation)
         3. [What are Depth Images?](#what-are-depth-images)
-    5. [About Matterport 3D Research Dataset](#about-matterport-3d-research-dataset)
 2. [Research Methodology](#research-methodology)
     1. [Installation (Ubuntu Focal 20.04)](#installation-ubuntu-focal-2004)
     2. [AirSim Simulation](#airsim-simulation)
@@ -296,7 +295,7 @@ geometry_msgs/PoseArray mesh_location       # Mesh Locations by Pose
 
 #### Coordinate Systems Transform
 
-The positional information of the meshes along with the vehicle's odometry are obtained from the AirSim Python client. However, the mesh position is defined on the Unreal coordinate system where as the odometry is in the AirSim coordinate system.
+The positional information of the meshes along with the vehicle's odometry is obtained from the AirSim Python client. However, the mesh position is defined on the Unreal coordinate system where as the odometry is in the AirSim coordinate system.
 
 In the image below obtained from the [ETH-Zürich Repository](https://github.com/ethz-asl/unreal_airsim/blob/master/docs/coordinate_systems.md) the different coordinates used are shown where AirSim uses [NED (Noth East Down)](https://en.wikipedia.org/wiki/Local_tangent_plane_coordinates) coordinates and the ETH ROS package uses [ASL](https://www.ros.org/reps/rep-0103.html) (i.e. Right-hand Rule). Moverover, Unreal uses Centimeters as metrics whereas AirSim uses Meters. The following equations are used to transform the absolute position of the meshes wrt. Unreal coordinates into the relative position wrt. AirSim's vehicle position.
 
@@ -307,11 +306,11 @@ $$
 \begin{aligned}
 10^{-2}*x^U = x^A = x^R && && 
 10^{-2}*y^U = y^A = -y^R && &&  
-10^{-2}*z^U = -z^A = z^R
+10^{-2}*z^U = -z^A = z^R \\
 \end{aligned} \\
 
 Considering \ all \ coordinates \ to \ be \ in \ meters \\
-U = Unreal \ \  \ A = AirSim \ \ \  R = ROS
+U = Unreal \ \  \ A = AirSim \ \ \  R = ROS \\
 $$
 
 The first step is to find the absolute start position of the Mesh and the Multirotor Vehicle wrt. AirsSim world:
@@ -356,7 +355,9 @@ $$
 The second step is to obtain the relative position of the Mesh wrt. the Multirotor Vehicle in AirSim coordinates. It's necessary to substract the initial position of the Multirotor Vehicle as the position obtained from the AirSim simulation is considered to be [0, 0, 0] while adding the current position for shifting that of the meshes at every timestep t :
 
 $$
+\begin{aligned}
 \overrightarrow{m}^{Ar}_t=[x^{Ar}_{mt}, y^{Ar}_{mt}, z^{Ar}_{mt}]
+\end{aligned} \\
 $$
 
 $$
@@ -370,7 +371,9 @@ $$
 The last step is to transform the relative position of the Mesh wrt.. the Multirotor Vehicle into ROS coordinates:
 
 $$
+\begin{aligned}
 \overrightarrow{m}^{Rr}_t=[x^{Rr}_{mt}, y^{Rr}_{mt}, z^{Rr}_{mt}]
+\end{aligned} \\
 $$
 
 $$
