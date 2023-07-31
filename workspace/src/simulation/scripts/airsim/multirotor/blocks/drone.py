@@ -62,13 +62,15 @@ client.hoverAsync().join()
 time.sleep(SLEEP)
 
 # Move Forward
-position = (0, 0, -5)# Rotate 180 degrees (Back)
-# client.rotateToYawAsync(90).join()
-# client.hoverAsync().join()
-# time.sleep(SLEEP)
+position = (0, 0, -5)
 client.moveToPositionAsync(*position, SPEED).join()
 client.hoverAsync().join()
 time.sleep(SLEEP)
+
+# Rotate 180 degrees (Back)
+# client.rotateToYawAsync(90).join()
+# client.hoverAsync().join()
+# time.sleep(SLEEP)
 
 # Descend
 position = (0, 0, 0)

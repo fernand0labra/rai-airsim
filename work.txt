@@ -231,3 +231,12 @@ https://aspis.cmpt.sfu.ca/scene-toolkit/scans/matterport3d/houses
 # Publish drone pose and move around Blocks Environment
 
 # Compute and publish relative ROS distance between meshes and drone
+
+
+##########################################################################
+#                       Week 31 - Monday 31/07/2023                      #
+##########################################################################
+
+# Record rosbag file
+
+# Visualize scatter plot of mesh with vehicle locations
