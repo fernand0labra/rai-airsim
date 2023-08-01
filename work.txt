@@ -242,3 +242,10 @@ https://aspis.cmpt.sfu.ca/scene-toolkit/scans/matterport3d/houses
 # Record rosbag file
 
 # Visualize scatter plot of mesh with vehicle locations
+
+
+##########################################################################
+#                      Week 31 - Tuesday 01/08/2023                      #
+##########################################################################
+
+# Make video with segmentation and mesh position topics
