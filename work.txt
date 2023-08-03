@@ -249,3 +249,10 @@ https://aspis.cmpt.sfu.ca/scene-toolkit/scans/matterport3d/houses
 ##########################################################################
 
 # Make video with segmentation and mesh position topics
+
+
+##########################################################################
+#                      Week 31 - Thursday 03/08/2023                     #
+##########################################################################
+
+# Update README.md

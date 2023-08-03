@@ -70,3 +70,5 @@ workspace/src/numpy_eigen
 workspace/src/image_pipeline
 
 workspace/.catkin_tools
+
+.vscode

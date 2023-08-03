@@ -1,4 +1,4 @@
- # PointCloud Mesh Segmentation from AirSim Simulated Depth Images
+ # AirSim Simulator Mesh Segmentation
 
  ## Table of Contents
 1. [Introduction](#introduction)
@@ -276,11 +276,11 @@ The results of the simulation can be seen in the images below obtained from RVIZ
 ### Dataset Generation
 
 With the AirSim simulation and the ETH-Zürich ROS wrapper, a segmentation dataset has been obtained in the form of the following ROS custom message recorded as a rosbag:
-* **odom_gt** :: The real time ground truth odometry of the vehicle wrt.. the AirSim Coordinates.
-* **mesh_location_gt** :: The absolute location of the meshes wrt.. the Unreal Coordinates.
+* **odom_gt** :: The real time ground truth odometry of the vehicle wrt. the AirSim Coordinates.
+* **mesh_location_gt** :: The absolute location of the meshes wrt. the Unreal Coordinates.
 * **seg_img** :: The segmentation image obtained from the camera sensor.
 * **mesh_ids** :: The meshes recognized by color in the segmentation image and saved as an array of color IDs ([*/docs/segmentation/seg_rgbs.txt*](/docs/segmentation/seg_rgbs.txt))
-* **mesh_location** :: The relative position of the recognized meshes wrt.. the current position of the drone in ASL coordinates (orientation not considered).
+* **mesh_location** :: The relative position of the recognized meshes wrt. the initial position of the drone in ASL coordinates (orientation not considered).
 
 The custom message with the ROS types is displayed below.
 
@@ -297,7 +297,7 @@ geometry_msgs/PoseArray mesh_location       # Mesh Locations by Pose
 
 The positional information of the meshes along with the vehicle's odometry is obtained from the AirSim Python client. However, the mesh position is defined on the Unreal coordinate system where as the odometry is in the AirSim coordinate system.
 
-In the image below obtained from the [ETH-Zürich Repository](https://github.com/ethz-asl/unreal_airsim/blob/master/docs/coordinate_systems.md) the different coordinates used are shown where AirSim uses [NED (Noth East Down)](https://en.wikipedia.org/wiki/Local_tangent_plane_coordinates) coordinates and the ETH ROS package uses [ASL](https://www.ros.org/reps/rep-0103.html) (i.e. Right-hand Rule). Moverover, Unreal uses Centimeters as metrics whereas AirSim uses Meters. The following equations are used to transform the absolute position of the meshes wrt. Unreal coordinates into the relative position wrt. AirSim's vehicle position.
+In the image below obtained from the [ETH-Zürich Repository](https://github.com/ethz-asl/unreal_airsim/blob/master/docs/coordinate_systems.md) the different coordinates used are shown where AirSim uses [NED (Noth East Down)](https://en.wikipedia.org/wiki/Local_tangent_plane_coordinates) coordinates and the ETH ROS package uses [ASL](https://www.ros.org/reps/rep-0103.html) (i.e. Right-hand Rule). Moverover, Unreal uses Centimeters as metrics whereas AirSim uses Meters. The following equations are used to transform the absolute position of the meshes wrt. Unreal coordinates into the relative position wrt. AirSim's coordinates.
 
 
 Let's start by considering the coordinate transformations:
@@ -323,12 +323,10 @@ The first step is to find the absolute start position of the Mesh and the Multir
 $$ 
 \begin{aligned}
 \overrightarrow{p}^U_0=[x^U_{p0}, y^U_{p0}, z^U_{p0}] && &&
-&& && 
-\overrightarrow{m}^U_t=[x^U_{mt}, y^U_{mt}, z^U_{mt}] && && 
+\overrightarrow{m}^U=[x^U_{m}, y^U_{m}, z^U_{m}] && && 
 Absolute \ position \ wrt. \ Unreal \ World \\
 \overrightarrow{p}^A_0=[x^A_{p0}, y^A_{p0}, z^A_{p0}] && &&
-\overrightarrow{p}^A_t=[x^A_{pt}, y^A_{pt}, z^A_{pt}] && && 
-\overrightarrow{m}^A_t=[x^A_{mt}, y^A_{mt}, z^A_{mt}] && && 
+\overrightarrow{m}^A=[x^A_{m}, y^A_{m}, z^A_{m}] && && 
 Absolute \ position \ wrt. \ AirSim \ World
 \end{aligned}
 $$
@@ -352,41 +350,53 @@ $$
 
 $$ 
 \begin{aligned}
-\overrightarrow{m}^A_t=[x^A_{mt}, y^A_{mt}, z^A_{mt}] && && 
-x^A_{mt} = 10^{-2} * x^U_{mt} && && 
-y^A_{mt} = 10^{-2} * y^U_{mt} && && 
-z^A_{mt} = - 10^{-2} * z^U_{mt}
+\overrightarrow{m}^A=[x^A_{m}, y^A_{m}, z^A_{m}] && && 
+x^A_{m} = 10^{-2} * x^U_{m} && && 
+y^A_{m} = 10^{-2} * y^U_{m} && && 
+z^A_{m} = - 10^{-2} * z^U_{m}
 \end{aligned}
 $$
 
-The second step is to obtain the relative position of the Mesh wrt. the Multirotor Vehicle in AirSim coordinates. It's necessary to substract the initial position of the Multirotor Vehicle as the position obtained from the AirSim simulation is considered to be [0, 0, 0] while adding the current position for shifting that of the meshes at every timestep t :
+The second step is to obtain the relative position of the Mesh wrt. the Multirotor Vehicle in AirSim coordinates. It's necessary to substract the initial position of the Multirotor Vehicle as the position obtained from the AirSim simulation is considered to be [0, 0, 0] :
 
 $$
-\overrightarrow{m}^{Ar\}_{t}=[x^{Ar}\_{mt}, y^{Ar}\_{mt}, z^{Ar}\_{mt}]
+\overrightarrow{m}^{Ar}=[x^{Ar}\_{m}, y^{Ar}\_{m}, z^{Ar}\_{m}]
 $$
 
 $$
 \begin{aligned}
-x^{Ar}\_{mt} = x^A_{pt} + (x^A_{mt} - x^A_{p0}) && && 
-y^{Ar}\_{mt} = y^A_{pt} + (y^A_{mt} - y^A_{p0}) && && 
-z^{Ar}\_{mt} = z^A_{pt} + (z^A_{mt} - z^A_{p0})
+x^{Ar}\_{m} = x^A_{m} - x^A_{p0} && && 
+y^{Ar}\_{m} = y^A_{m} - y^A_{p0} && && 
+z^{Ar}\_{m} = z^A_{m} - z^A_{p0}
 \end{aligned}
 $$
 
-The last step is to transform the relative position of the Mesh wrt. the Multirotor Vehicle into ROS coordinates:
+The last step is to transform the relative position of the Mesh wrt. AirSim into ROS coordinates:
 
 $$
-\overrightarrow{m}^{Rr}\_t=[x^{Rr}\_{mt}, y^{Rr}\_{mt}, z^{Rr}\_{mt}]
+\overrightarrow{m}^{Rr}\_t=[x^{Rr}\_{m}, y^{Rr}\_{m}, z^{Rr}\_{m}]
 $$
 
 $$
 \begin{aligned}
-x^{Rr}\_{mt} = x^{Ar}\_{mt} = x^A_{pt} + (x^A_{mt} - x^A_{p0}) && &&  
-y^{Rr}\_{mt} = - y^{Ar}\_{mt} = -(y^A_{pt} + (y^A_{mt} - y^A_{p0})) && &&
-z^{Rr}\_{mt} = - z^{Ar}\_{mt} = -(z^A_{pt} + (z^A_{mt} - z^A_{p0}))
+x^{Rr}\_{m} = x^{Ar}\_{m} = x^A_{m} - x^A_{p0} && &&  
+y^{Rr}\_{m} = - y^{Ar}\_{m} = -(y^A_{m} - y^A_{p0}) && &&
+z^{Rr}\_{m} = - z^{Ar}\_{m} = -(z^A_{m} - z^A_{p0})
 \end{aligned}
 $$
 
-An array of these positional vectors is published as **mesh_location** in the custom message when identified in the segmentation images. The code can be accessed in [/workspace/src/simulation/scripts/airsim/segmentation/blocks/mesh_handler.py](/workspace/src/simulation/scripts/airsim/segmentation/blocks/mesh_handler.py)
+An array of these positional vectors is published as **mesh_location** in the custom message when identified in the segmentation images. The code can be accessed in [/workspace/src/simulation/scripts/airsim/segmentation/blocks/mesh_handler.py](/workspace/src/simulation/scripts/airsim/segmentation/blocks/mesh_handler.py) and the data can be found under the [/data](data) folder.
 
-![ETH Coordinate Systems](/docs/imgs/eth-coordinate-systems.png)
+The result of the segmentation can be seen in the clickable video below. The segmentation images together with the position of the drone and the average position of the meshes (i.e. a segmentation mesh contains several elements with different positions) can be seen on real time as the topics are being published.
+
+<table>
+<tr>
+<td><a href="https://youtu.be/9SM2bB9OM14"><img src="docs/imgs/airsim-plot.png"/></a>
+<p align='Center'>AirSim Segmentation & Mesh Position</p>
+</td>
+<td>
+<img src="docs/imgs/eth-coordinate-systems.png"/>
+<p align='Center'>Coordinate Systems</p>
+</td>
+</tr>
+</table>
