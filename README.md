@@ -13,6 +13,7 @@
     1. [Installation (Ubuntu Focal 20.04)](#installation-ubuntu-focal-2004)
     2. [AirSim Simulation](#airsim-simulation)
     4. [Dataset Generation](#dataset-generation)
+3. [Citation](#citation)
 
 
 ## Introduction
@@ -400,3 +401,9 @@ The result of the segmentation can be seen in the clickable video below. The seg
 </td>
 </tr>
 </table>
+
+## Citation
+
+If you use this package on your work, please consider citing this project on the following manner:
+
+Labra Caso, F. (2023) rai-airsim :: ROS Package, AirSim Simulator Mesh Segmentation. Available at: https://github.com/fernand0labra/rai-airsim
